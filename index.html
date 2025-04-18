@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>דף נחיתה - פיננסים ופנסיה</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f3f4f6;
+      color: #1f2937;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      margin: 2rem;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    img.logo {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      text-align: center;
+      color: #0f172a;
+      font-size: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    .required::after {
+      content: " *";
+      color: red;
+    }
+    input[type="text"], input[type="email"] {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-top: 0.25rem;
+    }
+    .error {
+      border-color: red;
+    }
+    .error-message {
+      color: red;
+      font-size: 0.8rem;
+    }
+    .checkbox-container {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.75rem;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1e40af;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img class="logo" src="/mnt/data/708ab714-1e36-4eeb-bc46-bea5d114fc7a.jpg" alt="לוגו">
+    <h1>לקבלת מידע נוסף ו/או תיאום פגישה<br>אנא השאירו פרטים</h1>
+    <form id="leadForm">
+      <label class="required">שם פרטי:</label>
+      <input type="text" id="firstName" required>
+      <div id="firstNameError" class="error-message"></div>
+
+      <label class="required">שם משפחה:</label>
+      <input type="text" id="lastName" required>
+      <div id="lastNameError" class="error-message"></div>
+
+      <label class="required">טלפון:</label>
+      <input type="text" id="phone" pattern="[0-9\-]+" required>
+      <div id="phoneError" class="error-message"></div>
+
+      <label>Email:</label>
+      <input type="email" id="email">
+
+      <div class="checkbox-container">
+        <input type="checkbox" id="consent" checked>
+        <label for="consent">אני מאשר/ת קבלת דיוור במייל ו/או SMS</label>
+      </div>
+
+      <button type="submit">שלח</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('leadForm');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      let valid = true;
+      const firstName = document.getElementById('firstName');
+      const lastName = document.getElementById('lastName');
+      const phone = document.getElementById('phone');
+
+      [firstName, lastName, phone].forEach(field => {
+        field.classList.remove('error');
+        document.getElementById(field.id + 'Error').textContent = '';
+      });
+
+      if (!firstName.value.trim()) {
+        firstName.classList.add('error');
+        document.getElementById('firstNameError').textContent = 'יש למלא את השם הפרטי';
+        valid = false;
+      }
+      if (!lastName.value.trim()) {
+        lastName.classList.add('error');
+        document.getElementById('lastNameError').textContent = 'יש למלא את שם המשפחה';
+        valid = false;
+      }
+      if (!phone.value.trim() || !/^[0-9\-]+$/.test(phone.value)) {
+        phone.classList.add('error');
+        document.getElementById('phoneError').textContent = 'יש להזין מספר טלפון חוקי';
+        valid = false;
+      }
+
+      if (valid) {
+        alert('פרטיך נשלחו בהצלחה!');
+        // כאן תוכל להוסיף שליחה ל-MAKE
+      }
+    });
+  </script>
+</body>
+</html>
