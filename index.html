@@ -107,43 +107,71 @@
     </form>
   </div>
 
-  <script>
-    const form = document.getElementById('leadForm');
+<script>
+  const form = document.getElementById('leadForm');
 
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
 
-      let valid = true;
-      const firstName = document.getElementById('firstName');
-      const lastName = document.getElementById('lastName');
-      const phone = document.getElementById('phone');
+    let valid = true;
+    const firstName = document.getElementById('firstName');
+    const lastName = document.getElementById('lastName');
+    const phone = document.getElementById('phone');
+    const email = document.getElementById('email');
+    const consent = document.getElementById('consent').checked;
 
-      [firstName, lastName, phone].forEach(field => {
-        field.classList.remove('error');
-        document.getElementById(field.id + 'Error').textContent = '';
-      });
-
-      if (!firstName.value.trim()) {
-        firstName.classList.add('error');
-        document.getElementById('firstNameError').textContent = 'יש למלא את השם הפרטי';
-        valid = false;
-      }
-      if (!lastName.value.trim()) {
-        lastName.classList.add('error');
-        document.getElementById('lastNameError').textContent = 'יש למלא את שם המשפחה';
-        valid = false;
-      }
-      if (!phone.value.trim() || !/^[0-9\-]+$/.test(phone.value)) {
-        phone.classList.add('error');
-        document.getElementById('phoneError').textContent = 'יש להזין מספר טלפון חוקי';
-        valid = false;
-      }
-
-      if (valid) {
-        alert('פרטיך נשלחו בהצלחה!');
-        // כאן תוכל להוסיף שליחה ל-MAKE
-      }
+    [firstName, lastName, phone].forEach(field => {
+      field.classList.remove('error');
+      document.getElementById(field.id + 'Error').textContent = '';
     });
-  </script>
+
+    if (!firstName.value.trim()) {
+      firstName.classList.add('error');
+      document.getElementById('firstNameError').textContent = 'יש למלא את השם הפרטי';
+      valid = false;
+    }
+    if (!lastName.value.trim()) {
+      lastName.classList.add('error');
+      document.getElementById('lastNameError').textContent = 'יש למלא את שם המשפחה';
+      valid = false;
+    }
+    if (!phone.value.trim() || !/^[0-9\-]+$/.test(phone.value)) {
+      phone.classList.add('error');
+      document.getElementById('phoneError').textContent = 'יש להזין מספר טלפון חוקי';
+      valid = false;
+    }
+
+    if (valid) {
+      const data = {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        phone: phone.value,
+        email: email.value,
+        consent: consent ? 'כן' : 'לא'
+      };
+
+      fetch("https://hook.eu2.make.com/ukhd8lno8744n2jhotmsj3jpdc91t85t", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("פרטיך נשלחו בהצלחה!");
+          form.reset();
+        } else {
+          alert("אירעה שגיאה בשליחת הטופס. נסה שוב.");
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("אירעה שגיאה בשליחת הטופס.");
+      });
+    }
+  });
+</script>
+
 </body>
 </html>
