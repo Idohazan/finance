@@ -3,124 +3,114 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>דף נחיתה – פיננסים ופנסיה</title>
+  <title>פנסיה וביטוח – השאר פרטים</title>
   <style>
     body {
+      margin: 0; padding: 0;
       font-family: Arial, sans-serif;
-      background-color: #f0f4ff;
-      color: #0f172a;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-image: url('https://www.transparenttextures.com/patterns/asfalt.png');
-      background-size: cover;
-      background-position: center;
+      color: #333;
+      background: #f5f7fa;
     }
-    .container {
-      background: rgba(255,255,255,0.9);
+    .hero {
+      background: url('https://www.dolead.co.il/wp-content/uploads/2021/01/Pension-hero.jpg') center/cover no-repeat;
+      padding: 4rem 2rem;
+      text-align: center;
+      color: #fff;
+    }
+    .hero h1 {
+      margin: 0; font-size: 2rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+    .hero p {
+      margin: 1rem 0 2rem;
+      font-size: 1.1rem;
+    }
+    .form-wrapper {
+      background: #fff;
+      max-width: 400px;
+      margin: -2rem auto 2rem;
       padding: 2rem;
-      border-radius: 16px;
-      width: 100%;
-      max-width: 480px;
+      border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
-    img.logo {
-      display: block;
-      margin: 0 auto 1rem;
-      max-width: 120px;
+    .form-wrapper label {
+      display: block; margin-top: 1rem; font-weight: bold;
     }
-    h1 {
-      text-align: center;
-      font-size: 1.6rem;
-      color: #1e3a8a;
-      margin-bottom: 1rem;
+    .required::after { content:" *"; color:#d00; }
+    .form-wrapper input {
+      width: 100%; padding:0.6rem; margin-top:0.3rem;
+      border:1px solid #ccc; border-radius:6px;
     }
-    label { display: block; margin-top: 1rem; font-weight: bold; }
-    .required::after { content: " *"; color: #d14124; }
-    input, button {
-      width: 100%;
-      padding: 0.6rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      margin-top: 0.25rem;
-      font-size: 1rem;
+    .form-wrapper .checkbox-container {
+      display:flex; align-items:center; margin-top:1rem;
     }
-    input:focus { border-color: #1e3a8a; outline: none; }
-    .checkbox-container { margin-top: 1rem; display: flex; align-items: center; }
-    button {
-      background-color: #1e3a8a;
-      color: #fff;
-      border: none;
-      margin-top: 1.5rem;
-      cursor: pointer;
-      transition: background .3s;
+    .form-wrapper button {
+      width:100%; padding:0.7rem;
+      background:#007bff; color:#fff; border:none;
+      border-radius:6px; font-size:1rem; margin-top:1.5rem;
+      cursor:pointer; transition:background .3s;
     }
-    button:hover { background-color: #162f6b; }
-    .highlight { color: #f59e0b; }
-    .error { border-color: #d14124; }
-    .error-message { color: #d14124; font-size: 0.85rem; }
+    .form-wrapper button:hover { background:#0056b3; }
+    .error { border-color:#d00; }
+    .error-message { color:#d00; font-size:0.85rem; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <img class="logo" src="logo.jpg" alt="לוגו"/>
-    <h1>לקבלת מידע נוסף ו/או תיאום פגישה<br/><span class="highlight">השאירו פרטים</span></h1>
-    <form id="leadForm">
-      <label class="required">שם פרטי:</label>
-      <input type="text" id="firstName" required/>
-      <div id="firstNameError" class="error-message"></div>
-      <label class="required">שם משפחה:</label>
-      <input type="text" id="lastName" required/>
-      <div id="lastNameError" class="error-message"></div>
+
+  <div class="hero">
+    <h1>פנסיה וביטוח לכל החיים</h1>
+    <p>קבל הצעת מחיר חינם תוך 24 שעות</p>
+  </div>
+
+  <div class="form-wrapper">
+    <form id="leadForm2">
+      <label class="required">שם מלא:</label>
+      <input type="text" id="fullName" required/>
+      <div id="fullNameError" class="error-message"></div>
       <label class="required">טלפון:</label>
-      <input type="text" id="phone" pattern="[0-9\-]+" required/>
-      <div id="phoneError" class="error-message"></div>
+      <input type="text" id="phone2" pattern="[0-9\-]+" required/>
+      <div id="phone2Error" class="error-message"></div>
       <label>Email:</label>
-      <input type="email" id="email"/>
+      <input type="email" id="email2"/>
       <div class="checkbox-container">
-        <input type="checkbox" id="consent" checked/>
-        <label for="consent">אני מאשר/ת קבלת דיוור במייל ו/או SMS</label>
+        <input type="checkbox" id="consent2" checked/>
+        <label for="consent2">קבלת דיוור במייל ו/או SMS</label>
       </div>
-      <button type="submit">שלח</button>
+      <button type="submit">השאר פרטים</button>
     </form>
   </div>
+
   <script>
-    const form = document.getElementById('leadForm');
-    form.addEventListener('submit', e => {
+    document.getElementById('leadForm2').addEventListener('submit', function(e){
       e.preventDefault();
-      let valid = true;
-      const fields = ['firstName','lastName','phone'];
-      fields.forEach(id => {
+      let ok = true;
+      [['fullName','השם'],['phone2','טלפון']].forEach(([id,msg])=>{
         const el = document.getElementById(id);
+        document.getElementById(id+'Error').textContent='';
         el.classList.remove('error');
-        document.getElementById(id+'Error').textContent = '';
-        if (!el.value.trim() || (id==='phone' && !/^[0-9\-]+$/.test(el.value))) {
+        if(!el.value.trim()||(id==='phone2'&&!/^[0-9\-]+$/.test(el.value))){
           el.classList.add('error');
-          document.getElementById(id+'Error').textContent =
-            id==='phone'? 'יש להזין מספר טלפון חוקי':'שדה זה הוא חובה';
-          valid = false;
+          document.getElementById(id+'Error').textContent = id==='phone2'?'מספר טלפון לא חוקי':`יש למלא ${msg}`;
+          ok=false;
         }
       });
-      if (!valid) return;
+      if(!ok) return;
       const data = {
-        firstName: form.firstName.value,
-        lastName: form.lastName.value,
-        phone: form.phone.value,
-        email: form.email.value,
-        consent: form.consent.checked ? 'כן' : 'לא'
+        fullName: this.fullName.value,
+        phone: this.phone2.value,
+        email: this.email2.value,
+        consent: this.consent2.checked?'כן':'לא'
       };
       fetch("https://hook.eu2.make.com/ukhd8lno8744n2jhotmsj3jpdc91t85t", {
-        method:"POST",headers:{"Content-Type":"application/json"},
-        body: JSON.stringify(data)
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(data)
       })
       .then(r=> r.ok
-        ? (alert("פרטיך נשלחו בהצלחה!"), form.reset())
-        : alert("אירעה שגיאה בשליחה"))
-      .catch(()=> alert("שגיאה ברשת"));
+        ? (alert('הפרטים נשלחו בהצלחה'), this.reset())
+        : alert('שגיאה בשליחה'))
+      .catch(()=> alert('שגיאה ברשת'));
     });
   </script>
+
 </body>
 </html>
