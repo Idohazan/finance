@@ -1,116 +1,177 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>פנסיה וביטוח – השאר פרטים</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>דף נחיתה - פיננסים ופנסיה</title>
   <style>
     body {
-      margin: 0; padding: 0;
-      font-family: Arial, sans-serif;
-      color: #333;
-      background: #f5f7fa;
+      font-family: 'Arial', sans-serif;
+      background-color: #f3f4f6;
+      color: #1f2937;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .hero {
-      background: url('https://www.dolead.co.il/wp-content/uploads/2021/01/Pension-hero.jpg') center/cover no-repeat;
-      padding: 4rem 2rem;
-      text-align: center;
-      color: #fff;
-    }
-    .hero h1 {
-      margin: 0; font-size: 2rem;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-    }
-    .hero p {
-      margin: 1rem 0 2rem;
-      font-size: 1.1rem;
-    }
-    .form-wrapper {
-      background: #fff;
-      max-width: 400px;
-      margin: -2rem auto 2rem;
+    .container {
+      background: white;
       padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      border-radius: 16px;
+      margin: 2rem;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
-    .form-wrapper label {
-      display: block; margin-top: 1rem; font-weight: bold;
+    img.logo {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
     }
-    .required::after { content:" *"; color:#d00; }
-    .form-wrapper input {
-      width: 100%; padding:0.6rem; margin-top:0.3rem;
-      border:1px solid #ccc; border-radius:6px;
+    h1 {
+      text-align: center;
+      color: #0f172a;
+      font-size: 1.5rem;
     }
-    .form-wrapper .checkbox-container {
-      display:flex; align-items:center; margin-top:1rem;
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
     }
-    .form-wrapper button {
-      width:100%; padding:0.7rem;
-      background:#007bff; color:#fff; border:none;
-      border-radius:6px; font-size:1rem; margin-top:1.5rem;
-      cursor:pointer; transition:background .3s;
+    .required::after {
+      content: " *";
+      color: red;
     }
-    .form-wrapper button:hover { background:#0056b3; }
-    .error { border-color:#d00; }
-    .error-message { color:#d00; font-size:0.85rem; }
+    input[type="text"], input[type="email"] {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-top: 0.25rem;
+    }
+    .error {
+      border-color: red;
+    }
+    .error-message {
+      color: red;
+      font-size: 0.8rem;
+    }
+    .checkbox-container {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.75rem;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1e40af;
+    }
   </style>
 </head>
 <body>
+  <div class="container">
+    <img class="logo" src="logo.jpg" alt="לוגו">
+    <h1>לקבלת מידע נוסף ו/או תיאום פגישה<br>אנא השאירו פרטים</h1>
+    <form id="leadForm">
+      <label class="required">שם פרטי:</label>
+      <input type="text" id="firstName" required>
+      <div id="firstNameError" class="error-message"></div>
 
-  <div class="hero">
-    <h1>פנסיה וביטוח לכל החיים</h1>
-    <p>קבל הצעת מחיר חינם תוך 24 שעות</p>
-  </div>
+      <label class="required">שם משפחה:</label>
+      <input type="text" id="lastName" required>
+      <div id="lastNameError" class="error-message"></div>
 
-  <div class="form-wrapper">
-    <form id="leadForm2">
-      <label class="required">שם מלא:</label>
-      <input type="text" id="fullName" required/>
-      <div id="fullNameError" class="error-message"></div>
       <label class="required">טלפון:</label>
-      <input type="text" id="phone2" pattern="[0-9\-]+" required/>
-      <div id="phone2Error" class="error-message"></div>
+      <input type="text" id="phone" pattern="[0-9\-]+" required>
+      <div id="phoneError" class="error-message"></div>
+
       <label>Email:</label>
-      <input type="email" id="email2"/>
+      <input type="email" id="email">
+
       <div class="checkbox-container">
-        <input type="checkbox" id="consent2" checked/>
-        <label for="consent2">קבלת דיוור במייל ו/או SMS</label>
+        <input type="checkbox" id="consent" checked>
+        <label for="consent">אני מאשר/ת קבלת דיוור במייל ו/או SMS</label>
       </div>
-      <button type="submit">השאר פרטים</button>
+
+      <button type="submit">שלח</button>
     </form>
   </div>
 
-  <script>
-    document.getElementById('leadForm2').addEventListener('submit', function(e){
-      e.preventDefault();
-      let ok = true;
-      [['fullName','השם'],['phone2','טלפון']].forEach(([id,msg])=>{
-        const el = document.getElementById(id);
-        document.getElementById(id+'Error').textContent='';
-        el.classList.remove('error');
-        if(!el.value.trim()||(id==='phone2'&&!/^[0-9\-]+$/.test(el.value))){
-          el.classList.add('error');
-          document.getElementById(id+'Error').textContent = id==='phone2'?'מספר טלפון לא חוקי':`יש למלא ${msg}`;
-          ok=false;
-        }
-      });
-      if(!ok) return;
-      const data = {
-        fullName: this.fullName.value,
-        phone: this.phone2.value,
-        email: this.email2.value,
-        consent: this.consent2.checked?'כן':'לא'
-      };
-      fetch("https://hook.eu2.make.com/ukhd8lno8744n2jhotmsj3jpdc91t85t", {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(data)
-      })
-      .then(r=> r.ok
-        ? (alert('הפרטים נשלחו בהצלחה'), this.reset())
-        : alert('שגיאה בשליחה'))
-      .catch(()=> alert('שגיאה ברשת'));
+<script>
+  const form = document.getElementById('leadForm');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    let valid = true;
+    const firstName = document.getElementById('firstName');
+    const lastName = document.getElementById('lastName');
+    const phone = document.getElementById('phone');
+    const email = document.getElementById('email');
+    const consent = document.getElementById('consent').checked;
+
+    [firstName, lastName, phone].forEach(field => {
+      field.classList.remove('error');
+      document.getElementById(field.id + 'Error').textContent = '';
     });
-  </script>
+
+    if (!firstName.value.trim()) {
+      firstName.classList.add('error');
+      document.getElementById('firstNameError').textContent = 'יש למלא את השם הפרטי';
+      valid = false;
+    }
+    if (!lastName.value.trim()) {
+      lastName.classList.add('error');
+      document.getElementById('lastNameError').textContent = 'יש למלא את שם המשפחה';
+      valid = false;
+    }
+    if (!phone.value.trim() || !/^[0-9\-]+$/.test(phone.value)) {
+      phone.classList.add('error');
+      document.getElementById('phoneError').textContent = 'יש להזין מספר טלפון חוקי';
+      valid = false;
+    }
+
+    if (valid) {
+      const data = {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        phone: phone.value,
+        email: email.value,
+        consent: consent ? 'כן' : 'לא'
+      };
+
+      fetch("https://hook.eu2.make.com/ukhd8lno8744n2jhotmsj3jpdc91t85t", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("פרטיך נשלחו בהצלחה!");
+          form.reset();
+        } else {
+          alert("אירעה שגיאה בשליחת הטופס. נסה שוב.");
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("אירעה שגיאה בשליחת הטופס.");
+      });
+    }
+  });
+</script>
 
 </body>
 </html>
